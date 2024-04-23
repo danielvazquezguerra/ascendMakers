@@ -4,4 +4,5 @@ export interface IContact {
     phone?: string;
     age?: number;
     email?: string;
+    imgSrc?: string
 }
