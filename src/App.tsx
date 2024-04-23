@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import ContactsWrapper from './components/ContactsWrapper';
+import { MdOutlinePersonAddAlt1 } from "react-icons/md";
 
 function App() {
 
@@ -15,7 +16,10 @@ function App() {
               <img style={{width: '100%'}} className={classNames('h-full')} src="/img/ascendMakers_logo.svg" alt="ascendMakers_logo" />
               <h1 className={classNames('inter-900', 'text-2xl')}>AscendMakers</h1>
             </div>
-            <p className={classNames('inter-200', 'text-xs')}>Por Daniel</p>
+            <button className={classNames('flex', 'items-center', 'justify-center','bg-violet-900', 'px-3', 'text-white', 'text-xs', 'py-2', 'rounded-full', 'gap-3')}>
+              <p>Crear nuevo contacto</p>
+              <MdOutlinePersonAddAlt1 className={classNames('text-xl')}/>
+            </button>
           </div>
 
           <div className={classNames('flex', 'w-full', 'h-auto')}>

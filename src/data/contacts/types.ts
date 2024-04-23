@@ -6,3 +6,16 @@ export interface IContact {
     email?: string;
     imgSrc?: string
 }
+
+export interface CardProps {
+    data: IContact;
+    className?: string,
+    setUpdateRequest: Function;
+    updateRequest: number;
+
+}
+
+export interface Response {
+    ok: Boolean;
+    msg: String;
+}
