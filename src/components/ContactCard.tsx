@@ -1,13 +1,16 @@
 import classNames from 'classnames';
-import { apiFetchAllContacts } from '../data/contacts';
-import { CgProfile } from "react-icons/cg";
 import { FiEdit3 } from "react-icons/fi";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { apiDeleteContact } from '../data/contacts';
 import { CardProps } from '../data/contacts/types';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { copiarContenido } from '../util/clipboard';
 import { BiCopyAlt } from "react-icons/bi";
+
+
+
+
+
 
 const ContactCard = ({
     data,
@@ -46,8 +49,6 @@ const ContactCard = ({
 
             <div className={classNames('flex', 'flex-col', 'justify-start', 'items-start', 'w-full', 'gap-4')}>
 
-                {/* <CgProfile style={{ fontSize: 30 }} /> */}
-
                 <div className={classNames('flex', 'items-center', 'justify-center', 'rounded-full', 'w-10', 'h-10', 'bg-violet-900', 'shadow-sm', 'p-2')}>
                     <p className={classNames('text-white', 'inter-900')}>{iniciales(data.name)}</p>
                 </div>
@@ -56,7 +57,10 @@ const ContactCard = ({
 
                     <p className={classNames('inter-900')}>{data?.name}</p>
                     <button 
-                        onClick={()=> copiarContenido(data?.email)} 
+                        onClick={()=> {
+                            copiarContenido(data?.email);
+                        
+                        }} 
                         className={classNames('flex', 'justify-center', 'items-center','text-xs', 'hover:text-violet-900', 'gap-2')}
                     >
                             {data?.email} <BiCopyAlt className={classNames('hover:text-md', 'text-xs')}/>

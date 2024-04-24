@@ -2,12 +2,10 @@ import { useEffect, useState } from 'react';
 import { saveContacts, getContacts } from '../data/contacts/storage';
 import classNames from 'classnames';
 import ContactCard from './ContactCard';
-import { IContact } from '../data/contacts';
 import { generateUUID } from '../util/guid';
+import { apiFetchAllContacts } from '../data/contacts';
 
-const ContactsWrapper = ({
-
-}) => {
+const ContactsWrapper = () => {
     
     const [updateRequest, setUpdateRequest] = useState<number>(0);
 
@@ -18,8 +16,7 @@ const ContactsWrapper = ({
 
     useEffect(() => {
 
-
-        if (contacts.length < 1) { // SI no esta el valor de los datos los creamos.
+        if (contacts.length < 1 || !contacts) { // SI no esta el valor de los datos los creamos.
 
             saveContacts([
                 {
@@ -44,8 +41,8 @@ const ContactsWrapper = ({
                     email: 'jonathan.martinez@ascendmakers.com'
                 }
             ])
-
-
+            
+            setUpdateRequest(updateRequest + 1);
 
         }
 

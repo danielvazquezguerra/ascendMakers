@@ -15,7 +15,10 @@ export interface CardProps {
 
 }
 
-export interface Response {
-    ok: Boolean;
-    msg: String;
+export interface ModalAscendsProps {
+    children: React.ReactNode;
+    className?: string;
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    titulo?: string;
 }

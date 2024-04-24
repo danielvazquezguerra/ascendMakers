@@ -1,4 +1,4 @@
-import {IContact, Response} from "./types";
+import {IContact} from "./types";
 import {getContacts, saveContacts} from "./storage";
 
 const FAKE_NETWORK_DELAY = 750;
@@ -34,7 +34,7 @@ export function apiAddContact(contact: IContact): Promise<void> {
  * The contact will be matched based on the `id` property.
  * @param contact the contact to update.
  */
-export function apiUpdateContact(contact: IContact): Promise<Response> { //TODO response
+export function apiUpdateContact(contact: IContact): Promise<void> { //TODO response
     return new Promise((resolve, reject) => {
         const contacts = getContacts();
         const index = contacts.findIndex(x => x.id === contact.id);
