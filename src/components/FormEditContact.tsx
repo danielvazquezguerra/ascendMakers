@@ -1,27 +1,27 @@
 import classNames from 'classnames';
 import { useState } from 'react';
-import { MdOutlinePersonAddAlt1 } from 'react-icons/md';
 import { validNombre } from '../util/validations/validName';
 import { validEmail } from '../util/validations/email';
 import { validPhone } from '../util/validations/phone';
 import { validAge } from '../util/validations/edad';
-import { apiAddContact } from '../data/contacts';
-import { generateUUID } from '../util/guid';
-import { FormAddContactProps } from '../data/contacts/types';
+import { apiUpdateContact } from '../data/contacts';
+import { FormEditContactProps } from '../data/contacts/types';
 import { ImHappy } from "react-icons/im";
+import { FiEdit3 } from 'react-icons/fi';
 
-const FormNewContact = ({
+const FormEditContact = ({
     updateRequest,
     setUpdateRequest,
     className,
     isOpen,
     setIsOpen,
-}:FormAddContactProps) => {
+    contact
+}:FormEditContactProps) => {
 
-    const [nombre, setNombre] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
-    const [telefono, setTelefono] = useState<string>('');
-    const [edad, setEdad] = useState<string>('');
+    const [nombre, setNombre] = useState<string>(contact.name);
+    const [email, setEmail] = useState<string | undefined>(contact.email);
+    const [telefono, setTelefono] = useState<string | undefined>(contact.phone);
+    const [edad, setEdad] = useState<string | undefined>(String(contact.age));
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const nombreValido = validNombre(nombre, true);
@@ -29,7 +29,7 @@ const FormNewContact = ({
     const telefonoValido = validPhone(telefono);
     const edadValida = validAge(edad);
 
-    const esValido = nombreValido.ok && emailValido.ok && telefonoValido.ok && edadValida.ok; 
+    const esValido = nombreValido.ok && emailValido.ok && telefonoValido.ok && edadValida.ok;
 
     // clases para los inputs
     const inputBox = ['w-full', 'flex', 'flex-col', 'gap-1'];
@@ -87,6 +87,7 @@ const FormNewContact = ({
                     <label className={classNames(label)} htmlFor="email">Email</label>
                     <input
                         className={classNames(inpForCon)}
+                        value={email}
                         type="email"
                         name={'email'}
                         onChange={(e) => {
@@ -102,6 +103,7 @@ const FormNewContact = ({
                     <label className={classNames(label)} htmlFor="telefono">Teléfono</label>
                     <input
                         className={classNames(inpForCon)}
+                        value={telefono}
                         type="tel"
                         name={'telefono'}
                         onChange={(e) => {
@@ -121,6 +123,7 @@ const FormNewContact = ({
                         className={classNames(inpForCon)}
                         type="text"
                         name={'edad'}
+                        value={edad}
                         onChange={(e) => {
                             let value = e.target.value;
                             setEdad(value);
@@ -137,22 +140,25 @@ const FormNewContact = ({
                 className={classNames(butAddCon)}
                 onClick={ async () => {
 
-                    setIsLoading(true);
-
                     if (esValido) {
 
-                        await apiAddContact({
-                             name: nombre, 
-                             id: generateUUID(),
-                             email: email,
-                             age: Number(edad),
-                             phone: telefono,
-                         }).then(() => {
-                             setUpdateRequest(updateRequest + 1);
-                             setIsOpen(false);
-                         })
+                        setIsLoading(true);
+                        await apiUpdateContact({
+                            id: contact.id,
+                            name: nombre,
+                            phone: telefono,
+                            email: email,
+                            age: Number(edad),
 
-                         setIsLoading(false);
+                        }).then(() => {
+
+                            setIsLoading(false);
+                            setIsOpen(false);
+                            setUpdateRequest(updateRequest + 1)
+                            
+                        })
+                    
+
 
                     }
 
@@ -164,13 +170,13 @@ const FormNewContact = ({
                     !isLoading ?
 
                     <>
-                        <p>Crear nuevo contacto</p>
-                        <MdOutlinePersonAddAlt1 className={classNames('text-xl')} />
+                        <p>Editar contacto</p>
+                        <FiEdit3 className={classNames('text-xl')} />
                     </>
                     :
 
                     <>
-                        <p>Tenemos nuevo contacto</p>
+                        <p>Guardando los cambios</p>
                         <ImHappy />
                     </>
                 }
@@ -183,4 +189,4 @@ const FormNewContact = ({
     )
 }
 
-export default FormNewContact
+export default FormEditContact
