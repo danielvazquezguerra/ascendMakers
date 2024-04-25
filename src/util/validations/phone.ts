@@ -4,18 +4,6 @@ export const validPhone = (telefono:string | undefined) => {
     return { ok: false, mensaje: "El teléfono no puede estar vacío" };
   }
 
-  // if (telefono[0] === '+') {
-  //   telefono = telefono.substr(1);
-  // }
-  // if (telefono[0] === '0' && telefono[1] === '0') {
-  //   telefono = telefono.substr(2);
-  // }
-
-  // if (!telefono) {
-  //   return { ok: false, mensaje: "El teléfono no puede estar vacío" };
-  // }
-
-
     let correcto2 = ["6", "7", "9"].includes(telefono.slice(0, 1));
     if (! correcto2) {return { ok:false, mensaje: "Tiene que empezar por 6, 7 o 9."}};
   
@@ -53,7 +41,5 @@ export const validPhone = (telefono:string | undefined) => {
         return { ok: true, mensaje: "Número válido" }
       }// Pattern Belga 9 digitos
       return { ok: false, mensaje: "Número no válido"}
-
-  return {ok: false, mensaje: ''}
 
 }

@@ -30,7 +30,7 @@ const ContactCard = ({
 
     const iniciales = (nombre: string) => {
 
-        let arrayNombre = nombre.split(' ');
+        let arrayNombre = nombre.trim().split(' ');
         if (arrayNombre.length < 2) {
             return `${arrayNombre[0][0]}`
         } else {
@@ -61,7 +61,7 @@ const ContactCard = ({
 
             <div className={classNames('flex', 'flex-col', 'justify-start', 'items-start', 'w-full', 'sm:gap-4', 'gap-3')}>
 
-                <ModalAscends
+                <ModalAscends // Modal para editar los contactos.
                     isOpen={modalIsOpen}
                     setIsOpen={setModalIsOpen}
                     titulo={'Editar contacto'}
@@ -74,13 +74,18 @@ const ContactCard = ({
                     />}
                 />
 
-                <ModalAscends
+                <ModalAscends // Modal para Borrar el contacto.
                     isOpen={isModalDeleteOpen}
                     setIsOpen={setisModalDeleteOpen}
                     titulo={`¿Estás seguro de borrar a ${data.name}?`}
                     children={<div className={classNames('grid', 'grid-cols-2', 'w-full', 'items-center', 'justify-center', 'gap-4')}>
 
-                        <button className={classNames('border-2', 'border-violet-900', 'w-full', 'py-3', 'rounded-full')}>
+                        <button 
+                            className={classNames('border-2', 'border-violet-900', 'w-full', 'py-3', 'rounded-full')}
+                            onClick={() => {
+                                setisModalDeleteOpen(false);
+                            }}
+                        >
                             Cancelar
                         </button>
 
@@ -88,12 +93,11 @@ const ContactCard = ({
                             className={classNames('border-2', 'border-violet-900', 'bg-violet-900', 'w-full', 'py-3', 'rounded-full', 'text-white')}
                             onClick={async () => {
 
-                                setisModalDeleteOpen(true);
+                                setisModalDeleteOpen(false);
                                 setLoading(true);
                                 await apiDeleteContact(data?.id).then(() => {
                                     setLoading(false);
                                     setUpdateRequest(updateRequest + 1);
-
                                 });
                             }}
                         >
