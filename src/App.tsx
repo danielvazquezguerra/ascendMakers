@@ -66,13 +66,6 @@ useEffect(() => {
             age: 30,
             email: 'jonathan.martinez@ascendmakers.com'
         },
-        {
-          id: generateUUID(),
-          name: 'Jonathan Martinez',
-          phone: '652005533',
-          age: 30,
-          email: 'jonathan.martinez@ascendmakers.com'
-      }
     ])
 
   }
@@ -136,7 +129,7 @@ const headerBox = ['flex', 'sm:flex-row', 'flex-col', 'justify-between', 'sm:ite
 
         <footer className={classNames('flex', 'flex-col', 'justify-center', 'items-end', 'w-full', 'mt-5', 'mb-10', 'pr-4')}>
 
-          <p className={classNames('text-sm')}>Por <a className={classNames('inter-900')} href="https://danielvazquezguerra.com/" rel="noreferrer" target='_blank'>Daniel Vazquez</a></p>
+          <p className={classNames('text-sm', 'text-violet-900')}>Por <a className={classNames('inter-900')} href="https://danielvazquezguerra.com/" rel="noreferrer" target='_blank'>Daniel Vazquez</a></p>
           <small>Prueba técnica para <span className={classNames('inter-900')}>AscendsMakers</span> / 2024</small>
 
         </footer>

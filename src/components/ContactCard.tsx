@@ -20,14 +20,15 @@ const ContactCard = ({
     updateRequest,
     setUpdateRequest,
 
-}:CardProps) => {
+}: CardProps) => {
 
     const boxContactInfo = ['flex', 'flex-col', 'justify-center', 'items-start', 'w-full'];
 
     const [loading, setLoading] = useState(false);
-    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
+    const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+    const [isModalDeleteOpen, setisModalDeleteOpen] = useState<boolean>(false);
 
-    const iniciales = (nombre:string) => {
+    const iniciales = (nombre: string) => {
 
         let arrayNombre = nombre.split(' ');
         if (arrayNombre.length < 2) {
@@ -40,37 +41,68 @@ const ContactCard = ({
     return (
 
         <div className={classNames(
-            'w-full', 
+            'w-full',
             'flex',
             'sm:flex-rox',
             'flex-col',
-            'justify-start', 
-            'items-center', 
+            'justify-start',
+            'items-center',
             'p-5',
             'h-fit',
             'rounded-3xl',
             'from-white',
             'bg-gradient-to-br',
             'shadow-xl',
-            {'flip-horizontal-bottom': loading },
+            { 'flip-horizontal-bottom': loading },
             'transition-transform',
-             )}
+        )}
         >
 
 
             <div className={classNames('flex', 'flex-col', 'justify-start', 'items-start', 'w-full', 'sm:gap-4', 'gap-3')}>
 
                 <ModalAscends
-                    isOpen={modalIsOpen} 
+                    isOpen={modalIsOpen}
                     setIsOpen={setModalIsOpen}
                     titulo={'Editar contacto'}
                     children={<FormEditContact
-                                setUpdateRequest={setUpdateRequest} 
-                                updateRequest={updateRequest}
-                                isOpen={modalIsOpen} 
-                                setIsOpen={setModalIsOpen}
-                                contact={data}
-                            />}
+                        setUpdateRequest={setUpdateRequest}
+                        updateRequest={updateRequest}
+                        isOpen={modalIsOpen}
+                        setIsOpen={setModalIsOpen}
+                        contact={data}
+                    />}
+                />
+
+                <ModalAscends
+                    isOpen={isModalDeleteOpen}
+                    setIsOpen={setisModalDeleteOpen}
+                    titulo={`¿Estás seguro de borrar a ${data.name}?`}
+                    children={<div className={classNames('grid', 'grid-cols-2', 'w-full', 'items-center', 'justify-center', 'gap-4')}>
+
+                        <button className={classNames('border-2', 'border-violet-900', 'w-full', 'py-3', 'rounded-full')}>
+                            Cancelar
+                        </button>
+
+                        <button
+                            className={classNames('border-2', 'border-violet-900', 'bg-violet-900', 'w-full', 'py-3', 'rounded-full', 'text-white')}
+                            onClick={async () => {
+
+                                setisModalDeleteOpen(true);
+                                setLoading(true);
+                                await apiDeleteContact(data?.id).then(() => {
+                                    setLoading(false);
+                                    setUpdateRequest(updateRequest + 1);
+
+                                });
+                            }}
+                        >
+                            Borrar
+                        </button>
+
+
+
+                    </div>}
                 />
 
                 <div className={classNames('flex', 'w-full', 'justify-between', 'items-center')}>
@@ -85,14 +117,14 @@ const ContactCard = ({
                 <div className={classNames(boxContactInfo)}>
 
                     <p className={classNames('inter-900')}>{data?.name}</p>
-                    <button 
-                        onClick={()=> {
+                    <button
+                        onClick={() => {
                             copiarContenido(data?.email);
-                        
-                        }} 
-                        className={classNames('flex', 'justify-center', 'items-center','text-xs', 'hover:text-violet-900', 'gap-2')}
+
+                        }}
+                        className={classNames('flex', 'justify-center', 'items-center', 'text-xs', 'hover:text-violet-900', 'gap-2')}
                     >
-                            {data?.email} <BiCopyAlt className={classNames('hover:text-md', 'text-xs')}/>
+                        {data?.email} <BiCopyAlt className={classNames('hover:text-md', 'text-xs')} />
                     </button>
                     <p className={classNames('text-xs', 'inter-900', 'text-violet-900')}>{data?.phone}</p>
 
@@ -120,19 +152,16 @@ const ContactCard = ({
                     <div className={classNames('flex', 'items-center', 'justify-center', 'w-5', 'h-5')}>
 
                         <button
-                         className={classNames('text-md', 'hover:text-xl', 'hover:text-violet-700')}
-                            onClick={async() => {
+                            className={classNames('text-md', 'hover:text-xl', 'hover:text-violet-700')}
+                            onClick={async () => {
 
-                                setLoading(true);
-                                await apiDeleteContact(data?.id).then(() => { 
-                                    setLoading(false);
-                                    setUpdateRequest(updateRequest + 1);
-                                    
-                                });
-                                
+                                setisModalDeleteOpen(true);
+
+
+
                             }}
                         >
-                            <RiDeleteBin2Line className={classNames('text-md', 'hover:text-xl')}/>
+                            <RiDeleteBin2Line className={classNames('text-md', 'hover:text-xl')} />
 
                         </button>
 
