@@ -34,7 +34,7 @@ export function apiAddContact(contact: IContact): Promise<void> {
  * The contact will be matched based on the `id` property.
  * @param contact the contact to update.
  */
-export function apiUpdateContact(contact: IContact): Promise<void> {
+export function apiUpdateContact(contact: IContact): Promise<void> { //TODO response
     return new Promise((resolve, reject) => {
         const contacts = getContacts();
         const index = contacts.findIndex(x => x.id === contact.id);
@@ -57,7 +57,7 @@ export function apiUpdateContact(contact: IContact): Promise<void> {
  * Remove a contact from the remote storage.
  * @param id id fo the contact to delete
  */
-export function apiDeleteContact(id: string): Promise<void> {
+export function apiDeleteContact(id: string): Promise<object> {
     return new Promise((resolve, reject) => {
         const contacts = getContacts();
         const index = contacts.findIndex(x => x.id === id);
