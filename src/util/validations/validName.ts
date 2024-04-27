@@ -4,6 +4,8 @@ export const validNombre = (texto:string | undefined, requerido:boolean) => {
     // Creamos regex para no permitir caracteres invalidos
     const regexCaracteresInvalidos = new RegExp(/^[a-zA-Z _]*$/);
 
+    console.log(texto)
+
     let minLength = 2;
     let maxLength = 150;
 
@@ -14,8 +16,8 @@ export const validNombre = (texto:string | undefined, requerido:boolean) => {
     }
 
     const tieneCaracteresInvalidos = texto && regexCaracteresInvalidos.test(texto)
-    if(!tieneCaracteresInvalidos) { return {ok: false, mensaje: 'Texto con carácteres no validos'}}
-    return {ok: true, mensaje: 'Texto valido'}
+    if(!tieneCaracteresInvalidos) { return {ok: false, mensaje: 'Texto con carácteres no válidos'}}
+    return {ok: true, mensaje: 'Correcto'}
 
 }
 

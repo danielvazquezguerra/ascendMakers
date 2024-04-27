@@ -7,8 +7,12 @@ import { validPhone } from '../util/validations/phone';
 import { validAge } from '../util/validations/edad';
 import { apiAddContact } from '../data/contacts';
 import { generateUUID } from '../util/guid';
-import { FormAddContactProps } from '../data/contacts/types';
+import { FormAddContactProps, ValidInput } from '../data/contacts/types';
 import { ImHappy } from "react-icons/im";
+import { GrStatusGood } from "react-icons/gr";
+import { IoWarningOutline } from "react-icons/io5";
+
+
 
 const FormNewContact = ({
     updateRequest,
@@ -29,7 +33,9 @@ const FormNewContact = ({
     const telefonoValido = validPhone(telefono);
     const edadValida = validAge(edad);
 
-    const esValido = nombreValido.ok && emailValido.ok && telefonoValido.ok && edadValida.ok; 
+    const esValido = nombreValido.ok && emailValido.ok && telefonoValido.ok && edadValida.ok;
+    
+    console.log(esValido)
 
     // clases para los inputs
     const inputBox = ['w-full', 'flex', 'flex-col', 'gap-1'];
@@ -56,6 +62,27 @@ const FormNewContact = ({
         'hover:to-rose-400'
     ]
 
+    const textoError  = [ 'text-xs', 'text-red-500' ];
+    const textoValido = [ 'text-xs', 'text-green-600'];
+
+
+    // le pasamos el valor de los campos y retorna los iconos que corresponden con el mensaje.
+    const validadorInput = (validador:ValidInput, valor:string |number) => {
+
+        if ( validador.ok  && valor !== '') { // No puede aparecer hasta que el usuario no escriba algo
+            return {
+                icon: <GrStatusGood className={classNames('text-green-600')} fontSize={20}/>,
+                mensaje: <p className={classNames(textoValido)}>{validador.mensaje}</p>
+            }
+        } else if  (!validador.ok && valor !== '') { 
+            return { 
+                icon: <IoWarningOutline fontSize={20} className={classNames('text-orange-600')}/>,
+                mensaje: <p className={classNames(textoError)}>{validador.mensaje}</p>
+            }
+        }
+
+    }
+
 
 
     return (
@@ -67,8 +94,22 @@ const FormNewContact = ({
                 <div className={classNames(inputBox)}>
 
                     <label className={classNames(label)} htmlFor="nombre">Nombre</label>
+
+                    <div className={classNames(
+                        'flex', 
+                        'items-center', 
+                        'justify-center', 
+                        'gap-4',
+
+
+                        )}>
+
                     <input
-                        className={classNames(inpForCon)}
+                        className={classNames(
+                            inpForCon,                         
+                            {'border-emerald-600': nombreValido.ok  && nombre !== ''},
+                            {'border-orange-600': !nombreValido.ok && nombre !== '' },
+                        )}
                         value={nombre}
                         type="text"
                         onChange={(e) => {
@@ -77,57 +118,106 @@ const FormNewContact = ({
                         }}
                     />
 
+                    {validadorInput(nombreValido, nombre)?.icon} 
+
+                    </div>
+
                     <div className={classNames('flex', 'justify-start', 'items-center', 'h-6')}>
-                        {!nombreValido.ok && <p className={classNames('text-xs')}>{nombreValido.mensaje}</p>}
+                       { validadorInput(nombreValido, nombre)?.mensaje }
                     </div>
 
                 </div>
 
                 <div className={classNames(inputBox)}>
                     <label className={classNames(label)} htmlFor="email">Email</label>
-                    <input
-                        className={classNames(inpForCon)}
-                        type="email"
-                        name={'email'}
-                        onChange={(e) => {
-                            let value = e.target.value;
-                            setEmail(value);
-                        }} />
+
+                    <div className={classNames(
+                            'flex', 
+                            'items-center', 
+                            'justify-center', 
+                            'gap-4',
+                        )}
+                    >
+
+                        <input
+                            className={classNames(inpForCon)}
+                            type="email"
+                            name={'email'}
+                            onChange={(e) => {
+                                let value = e.target.value;
+                                setEmail(value);
+                            }} 
+                        />
+
+                         {validadorInput(emailValido, email)?.icon}
+
+
+                    </div>
+
                     <div className={classNames('flex', 'justify-start', 'items-center', 'h-6')}>
-                        {!emailValido.ok && <p className={classNames('text-xs')}>{emailValido.mensaje}</p>}
+                        {validadorInput(emailValido, email)?.mensaje}    
                     </div>
                 </div>
 
                 <div className={classNames(inputBox)}>
                     <label className={classNames(label)} htmlFor="telefono">Teléfono</label>
-                    <input
-                        className={classNames(inpForCon)}
-                        type="tel"
-                        name={'telefono'}
-                        onChange={(e) => {
-                            let value = e.target.value;
-                            setTelefono(value);
-                        }}
-                    />
+                    <div className={classNames(
+                            'flex', 
+                            'items-center', 
+                            'justify-center', 
+                            'gap-4',
+                        )}
+                    >
+
+                        <input
+                            className={classNames(inpForCon)}
+                            type="tel"
+                            name={'telefono'}
+                            onChange={(e) => {
+                                let value = e.target.value;
+                                setTelefono(value);
+                            }}
+                        />
+
+                        {validadorInput(telefonoValido, telefono)?.icon}
+
+
+                    </div>
 
                     <div className={classNames('flex', 'justify-start', 'items-center', 'h-6')}>
-                        {!telefonoValido.ok && <p className={classNames('text-xs')}>{telefonoValido.mensaje}</p>}
+                        {validadorInput(telefonoValido, telefono)?.mensaje}
                     </div>
                 </div>
 
                 <div className={classNames(inputBox)}>
                     <label className={classNames(label)} htmlFor="edad">Edad</label>
-                    <input
-                        className={classNames(inpForCon)}
-                        type="text"
-                        name={'edad'}
-                        onChange={(e) => {
-                            let value = e.target.value;
-                            setEdad(value);
-                        }}
-                    />
+
+                    <div className={classNames(
+                            'flex', 
+                            'items-center', 
+                            'justify-center', 
+                            'gap-4',
+                        )}
+                    >
+
+                        <input
+                            className={classNames(inpForCon)}
+                            type="text"
+                            name={'edad'}
+                            onChange={(e) => {
+                                let value = e.target.value;
+                                setEdad(value);
+                            }}
+                        />
+
+                        {validadorInput(edadValida, edad)?.icon}
+
+
+                    </div>
+
+
                     <div className={classNames('flex', 'justify-start', 'items-center', 'h-6')}>
-                        {!edadValida.ok && <p className={classNames('text-xs')}>{edadValida.mensaje}</p>}
+                        {validadorInput(edadValida, edad)?.mensaje}
                     </div>
                 </div>
 
@@ -137,10 +227,10 @@ const FormNewContact = ({
                 className={classNames(butAddCon)}
                 onClick={ async () => {
 
-                    setIsLoading(true);
-
+                    
                     if (esValido) {
-
+                        
+                        setIsLoading(true);
                         await apiAddContact({
                              name: nombre, 
                              id: generateUUID(),

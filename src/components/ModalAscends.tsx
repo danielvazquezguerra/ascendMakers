@@ -2,6 +2,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import { ModalAscendsProps } from '../data/contacts/types'
 import classNames from 'classnames'
+import { IoMdCloseCircleOutline } from "react-icons/io";
 
 export default function ModalAscends({
   isOpen,
@@ -45,10 +46,15 @@ export default function ModalAscends({
               >
                 <Dialog.Panel className="w-full max-w-md flex flex-col transform overflow-hidden rounded-3xl bg-white p-8 text-left align-middle shadow-xl transition-all gap-4">
                   <Dialog.Title
-                    as="h3"
-                    className={classNames('text-xl')}
+                    as="div"
+                    className={classNames('text-xl', 'flex', 'justify-between', 'items-center')}
                   >
                     {titulo}
+
+                    <button onClick={closeModal}>
+                      <IoMdCloseCircleOutline />
+                    </button>
+
                   </Dialog.Title>
 
                   {children}

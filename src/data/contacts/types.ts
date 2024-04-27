@@ -7,6 +7,11 @@ export interface IContact {
     imgSrc?: string;
 }
 
+export interface ValidInput {
+    ok: boolean,
+    mensaje: string
+}
+
 export interface CardProps {
     data: IContact;
     className?: string,
@@ -15,12 +20,17 @@ export interface CardProps {
 
 }
 
+export interface ValidProps {
+    validador: ValidInput,
+    valor: string | number 
+}
+
 export interface ModalAscendsProps {
     children: React.ReactNode;
     className?: string;
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    titulo?: string;
+    titulo?: React.ReactNode;
 }
 
 export interface FormAddContactProps {
