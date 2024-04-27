@@ -77,7 +77,13 @@ const ContactCard = ({
                 <ModalAscends // Modal para Borrar el contacto.
                     isOpen={isModalDeleteOpen}
                     setIsOpen={setisModalDeleteOpen}
-                    titulo={`¿Estás seguro de borrar a ${data.name}?`}
+                    titulo={
+                            <div>
+                                <p>¿Estás seguro?</p>
+                                <p className={classNames('text-xs')}><span className={classNames('inter-900')}>{data.name}</span> será eliminado.</p>
+                            </div>
+                
+                    }
                     children={<div className={classNames('grid', 'grid-cols-2', 'w-full', 'items-center', 'justify-center', 'gap-4')}>
 
                         <button 

@@ -23,7 +23,7 @@ const ContactsWrapper = ({
             <ModalAscends
                     isOpen={modalIsOpen} 
                     setIsOpen={setModalIsOpen}
-                    titulo={'Crear un contacto'}
+                    titulo={<p>Crear un contacto hola</p>}
                     children={<FormNewContact
                                 setUpdateRequest={setUpdateRequest} 
                                 updateRequest={updateRequest}

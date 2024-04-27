@@ -40,7 +40,7 @@ useEffect(() => {
 
   apiFetchAllContacts().then((_contacts)=> {
 
-    if (updateRequest < 1) {
+    if (updateRequest < 1 && contacts.length  < 1) {
 
       setUpdateRequest(1);
 
@@ -87,7 +87,7 @@ const headerBox = ['flex', 'sm:flex-row', 'flex-col', 'justify-between', 'sm:ite
       <ModalAscend
         isOpen={modalIsOpen} 
         setIsOpen={setModalIsOpen}
-        titulo={'Crear un contacto'}
+        titulo={<p>Crear un contacto</p>}
         children={<FormNewContact 
                     setUpdateRequest={setUpdateRequest} 
                     updateRequest={updateRequest}
@@ -130,7 +130,7 @@ const headerBox = ['flex', 'sm:flex-row', 'flex-col', 'justify-between', 'sm:ite
         <footer className={classNames('flex', 'flex-col', 'justify-center', 'items-end', 'w-full', 'mt-5', 'mb-10', 'pr-4')}>
 
           <p className={classNames('text-sm', 'text-violet-900')}>Por <a className={classNames('inter-900')} href="https://danielvazquezguerra.com/" rel="noreferrer" target='_blank'>Daniel Vazquez</a></p>
-          <small>Prueba técnica para <span className={classNames('inter-900')}>AscendsMakers</span> / 2024</small>
+          <small>Prueba técnica para <a className={classNames('inter-900')} href={'https://ascendmakers.com/'} rel="noreferrer" target='_blank'>AscendMakers</a> / 2024</small>
 
         </footer>
 
