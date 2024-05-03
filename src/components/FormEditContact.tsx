@@ -18,7 +18,7 @@ const FormEditContact = ({
     isOpen,
     setIsOpen,
     contact
-}:FormEditContactProps) => {
+}: FormEditContactProps) => {
 
     const [nombre, setNombre] = useState<string>(contact.name);
     const [email, setEmail] = useState<string | undefined>(contact.email);
@@ -33,25 +33,25 @@ const FormEditContact = ({
 
     const esValido = nombreValido.ok && emailValido.ok && telefonoValido.ok && edadValida.ok;
 
-    const textoError  = [ 'text-xs', 'text-red-500' ];
-    const textoValido = [ 'text-xs', 'text-green-600'];
+    const textoError = ['text-xs', 'text-red-500'];
+    const textoValido = ['text-xs', 'text-green-600'];
 
-        // le pasamos el valor de los campos y retorna los iconos que corresponden con el mensaje.
-        const validadorInput = (validador:ValidInput, valor:string |number) => {
+    // le pasamos el valor de los campos y retorna los iconos que corresponden con el mensaje.
+    const validadorInput = (validador: ValidInput, valor: string | number) => {
 
-            if ( validador.ok  && valor !== '') { // No puede aparecer hasta que el usuario no escriba algo
-                return {
-                    icon: <GrStatusGood className={classNames('text-green-600')} fontSize={20}/>,
-                    mensaje: <p className={classNames(textoValido)}>{validador.mensaje}</p>
-                }
-            } else if  (!validador.ok && valor !== '') { 
-                return { 
-                    icon: <IoWarningOutline fontSize={20} className={classNames('text-orange-600')}/>,
-                    mensaje: <p className={classNames(textoError)}>{validador.mensaje}</p>
-                }
+        if (validador.ok && valor !== '') { // No puede aparecer hasta que el usuario no escriba algo
+            return {
+                icon: <GrStatusGood className={classNames('text-green-600')} fontSize={20} />,
+                mensaje: <p className={classNames(textoValido)}>{validador.mensaje}</p>
             }
-    
+        } else if (!validador.ok && valor !== '') {
+            return {
+                icon: <IoWarningOutline fontSize={20} className={classNames('text-orange-600')} />,
+                mensaje: <p className={classNames(textoError)}>{validador.mensaje}</p>
+            }
         }
+
+    }
 
     // clases para los inputs
     const inputBox = ['w-full', 'flex', 'flex-col', 'gap-1'];
@@ -63,17 +63,17 @@ const FormEditContact = ({
         'justify-center',
         'bg-violet-900',
         'px-3',
-        {'text-white': esValido},
-        {'text-gray-600': !esValido},
+        { 'text-white': esValido },
+        { 'text-gray-600': !esValido },
         'text-xs',
         'py-3',
         'rounded-full',
         'gap-3',
         'w-full',
-        {'hover:border-violet-900': esValido},
-        {'hover:from-violet-500': esValido},
-        {'border-2': !esValido},
-        {'bg-white': !esValido},
+        { 'hover:border-violet-900': esValido },
+        { 'hover:from-violet-500': esValido },
+        { 'border-2': !esValido },
+        { 'bg-white': !esValido },
         'bg-gradient-to-br',
         'hover:to-rose-400'
     ]
@@ -84,146 +84,146 @@ const FormEditContact = ({
 
         <div className={classNames('flex', 'flex-col', 'items-center', 'justify-center', 'gap-10')}>
 
-<div className={classNames('flex', 'flex-col', 'w-full', 'gap-4')}>
+            <div className={classNames('flex', 'flex-col', 'w-full', 'gap-4')}>
 
-<div className={classNames(inputBox)}>
+                <div className={classNames(inputBox)}>
 
-    <label className={classNames(label)} htmlFor="nombre">Nombre</label>
+                    <label className={classNames(label)} htmlFor="nombre">Nombre</label>
 
-    <div className={classNames(
-        'flex', 
-        'items-center', 
-        'justify-center', 
-        'gap-4',
-
-
-        )}>
-
-    <input
-        className={classNames(
-            inpForCon,                         
-            {'border-emerald-600': nombreValido.ok  && nombre !== ''},
-            {'border-orange-600': !nombreValido.ok && nombre !== '' },
-        )}
-        value={nombre}
-        type="text"
-        onChange={(e) => {
-            let value = e.target.value;
-            setNombre(value.toUpperCase());
-        }}
-    />
-
-    {validadorInput(nombreValido, nombre)?.icon} 
-
-    </div>
-
-    <div className={classNames('flex', 'justify-start', 'items-center', 'h-6')}>
-       { validadorInput(nombreValido, nombre)?.mensaje }
-    </div>
-
-</div>
-
-<div className={classNames(inputBox)}>
-    <label className={classNames(label)} htmlFor="email">Email</label>
-
-    <div className={classNames(
-            'flex', 
-            'items-center', 
-            'justify-center', 
-            'gap-4',
-        )}
-    >
-
-        <input
-            className={classNames(inpForCon)}
-            type="email"
-            name={'email'}
-            value={email}
-            onChange={(e) => {
-                let value = e.target.value;
-                setEmail(value);
-            }} 
-        />
-
-         {email && validadorInput(emailValido, email)?.icon}
+                    <div className={classNames(
+                        'flex',
+                        'items-center',
+                        'justify-center',
+                        'gap-4',
 
 
-    </div>
+                    )}>
 
-    <div className={classNames('flex', 'justify-start', 'items-center', 'h-6')}>
-        {email && validadorInput(emailValido, email)?.mensaje}    
-    </div>
-</div>
+                        <input
+                            className={classNames(
+                                inpForCon,
+                                { 'border-emerald-600': nombreValido.ok && nombre !== '' },
+                                { 'border-orange-600': !nombreValido.ok && nombre !== '' },
+                            )}
+                            value={nombre}
+                            type="text"
+                            onChange={(e) => {
+                                let value = e.target.value;
+                                setNombre(value.toUpperCase());
+                            }}
+                        />
 
-<div className={classNames(inputBox)}>
-    <label className={classNames(label)} htmlFor="telefono">Teléfono</label>
-    <div className={classNames(
-            'flex', 
-            'items-center', 
-            'justify-center', 
-            'gap-4',
-        )}
-    >
+                        {validadorInput(nombreValido, nombre)?.icon}
 
-        <input
-            className={classNames(inpForCon)}
-            type="tel"
-            value={telefono}
-            name={'telefono'}
-            onChange={(e) => {
-                let value = e.target.value;
-                setTelefono(value);
-            }}
-        />
+                    </div>
 
-        {telefono && validadorInput(telefonoValido, telefono)?.icon}
+                    <div className={classNames('flex', 'justify-start', 'items-center', 'h-6')}>
+                        {validadorInput(nombreValido, nombre)?.mensaje}
+                    </div>
 
+                </div>
 
-    </div>
+                <div className={classNames(inputBox)}>
+                    <label className={classNames(label)} htmlFor="email">Email</label>
 
-    <div className={classNames('flex', 'justify-start', 'items-center', 'h-6')}>
-        { telefono && validadorInput(telefonoValido, telefono)?.mensaje}
-    </div>
-</div>
+                    <div className={classNames(
+                        'flex',
+                        'items-center',
+                        'justify-center',
+                        'gap-4',
+                    )}
+                    >
 
-<div className={classNames(inputBox)}>
-    <label className={classNames(label)} htmlFor="edad">Edad</label>
+                        <input
+                            className={classNames(inpForCon)}
+                            type="email"
+                            name={'email'}
+                            value={email}
+                            onChange={(e) => {
+                                let value = e.target.value;
+                                setEmail(value);
+                            }}
+                        />
 
-    <div className={classNames(
-            'flex', 
-            'items-center', 
-            'justify-center', 
-            'gap-4',
-        )}
-    >
-
-        <input
-            className={classNames(inpForCon)}
-            type="text"
-            name={'edad'}
-            value={edad}
-            onChange={(e) => {
-                let value = e.target.value;
-                setEdad(value);
-            }}
-        />
-
-        {edad && validadorInput(edadValida, edad)?.icon}
+                        {email && validadorInput(emailValido, email)?.icon}
 
 
-    </div>
+                    </div>
+
+                    <div className={classNames('flex', 'justify-start', 'items-center', 'h-6')}>
+                        {email && validadorInput(emailValido, email)?.mensaje}
+                    </div>
+                </div>
+
+                <div className={classNames(inputBox)}>
+                    <label className={classNames(label)} htmlFor="telefono">Teléfono</label>
+                    <div className={classNames(
+                        'flex',
+                        'items-center',
+                        'justify-center',
+                        'gap-4',
+                    )}
+                    >
+
+                        <input
+                            className={classNames(inpForCon)}
+                            type="tel"
+                            value={telefono}
+                            name={'telefono'}
+                            onChange={(e) => {
+                                let value = e.target.value;
+                                setTelefono(value);
+                            }}
+                        />
+
+                        {telefono && validadorInput(telefonoValido, telefono)?.icon}
 
 
-    <div className={classNames('flex', 'justify-start', 'items-center', 'h-6')}>
-        {edad &&  validadorInput(edadValida, edad)?.mensaje}
-    </div>
-</div>
+                    </div>
 
-</div>
+                    <div className={classNames('flex', 'justify-start', 'items-center', 'h-6')}>
+                        {telefono && validadorInput(telefonoValido, telefono)?.mensaje}
+                    </div>
+                </div>
+
+                <div className={classNames(inputBox)}>
+                    <label className={classNames(label)} htmlFor="edad">Edad</label>
+
+                    <div className={classNames(
+                        'flex',
+                        'items-center',
+                        'justify-center',
+                        'gap-4',
+                    )}
+                    >
+
+                        <input
+                            className={classNames(inpForCon)}
+                            type="text"
+                            name={'edad'}
+                            value={edad}
+                            onChange={(e) => {
+                                let value = e.target.value;
+                                setEdad(value);
+                            }}
+                        />
+
+                        {edad && validadorInput(edadValida, edad)?.icon}
+
+
+                    </div>
+
+
+                    <div className={classNames('flex', 'justify-start', 'items-center', 'h-6')}>
+                        {edad && validadorInput(edadValida, edad)?.mensaje}
+                    </div>
+                </div>
+
+            </div>
 
             <button
                 className={classNames(butAddCon)}
-                onClick={ async () => {
+                onClick={async () => {
 
                     if (esValido) {
 
@@ -240,9 +240,9 @@ const FormEditContact = ({
                             setIsLoading(false);
                             setIsOpen(false);
                             setUpdateRequest(updateRequest + 1)
-                            
+
                         })
-                    
+
 
 
                     }
@@ -254,16 +254,16 @@ const FormEditContact = ({
                 {
                     !isLoading ?
 
-                    <>
-                        <p>Editar contacto</p>
-                        <FiEdit3 className={classNames('text-xl')} />
-                    </>
-                    :
+                        <>
+                            <p>Editar contacto</p>
+                            <FiEdit3 className={classNames('text-xl')} />
+                        </>
+                        :
 
-                    <>
-                        <p>Guardando los cambios</p>
-                        <ImHappy />
-                    </>
+                        <>
+                            <p>Guardando los cambios</p>
+                            <ImHappy />
+                        </>
                 }
 
 
