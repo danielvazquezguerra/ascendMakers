@@ -8,6 +8,8 @@ import { copiarContenido } from '../util/clipboard';
 import { BiCopyAlt } from "react-icons/bi";
 import ModalAscends from './ModalAscends';
 import FormEditContact from './FormEditContact';
+import AvatarProfile from './AvatarProfile';
+
 
 
 
@@ -27,16 +29,6 @@ const ContactCard = ({
     const [loading, setLoading] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
     const [isModalDeleteOpen, setisModalDeleteOpen] = useState<boolean>(false);
-
-    const iniciales = (nombre: string) => {
-
-        let arrayNombre = nombre.trim().split(' ');
-        if (arrayNombre.length < 2) {
-            return `${arrayNombre[0][0]}`
-        } else {
-            return `${arrayNombre[0][0]}${arrayNombre[1][0]}`
-        }
-    }
 
     return (
 
@@ -115,10 +107,9 @@ const ContactCard = ({
                     </div>}
                 />
 
+
                 <div className={classNames('flex', 'w-full', 'justify-between', 'items-center')}>
-                    <div className={classNames('flex', 'items-center', 'justify-center', 'rounded-full', 'w-10', 'h-10', 'bg-violet-900', 'shadow-sm', 'p-2')}>
-                        <p className={classNames('text-white', 'inter-900')}>{iniciales(data.name)}</p>
-                    </div>
+                    <AvatarProfile name={data.name}/>
                     <p className={classNames('text-xl', 'text-violet-500')}>{data.age} <span className={classNames('text-gray-700')}>años</span></p>
 
                 </div>
@@ -166,9 +157,6 @@ const ContactCard = ({
                             onClick={async () => {
 
                                 setisModalDeleteOpen(true);
-
-
-
                             }}
                         >
                             <RiDeleteBin2Line className={classNames('text-md', 'hover:text-xl')} />

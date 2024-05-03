@@ -23,16 +23,17 @@ const ContactsWrapper = ({
             <ModalAscends
                     isOpen={modalIsOpen} 
                     setIsOpen={setModalIsOpen}
-                    titulo={<p>Crear un contacto hola</p>}
+                    titulo={<p>Crear un contacto</p>}
                     children={<FormNewContact
                                 setUpdateRequest={setUpdateRequest} 
                                 updateRequest={updateRequest}
                                 isOpen={modalIsOpen} 
                                 setIsOpen={setModalIsOpen}
                             />}
-                />
+            />
 
             {
+                // recibimos los contactos y en caso de no haber DATA nos muestra un banner para incluir alguno
                 contacts && contacts.length > 0 ?
 
                     contacts.map((_contact, key) => {

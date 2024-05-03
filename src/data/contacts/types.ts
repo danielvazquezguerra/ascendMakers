@@ -20,6 +20,10 @@ export interface CardProps {
 
 }
 
+export interface ProfileInicialesProps {
+    name: string,
+}
+
 export interface ValidProps {
     validador: ValidInput,
     valor: string | number 
